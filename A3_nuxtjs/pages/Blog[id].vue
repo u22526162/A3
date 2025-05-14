@@ -1,3 +1,5 @@
+<!-- Amadeus Fidos u22526162-->
+
 <template>
   <div v-if="pending" class="loading">Loading...</div>
   <div v-else-if="error" class="error">Error loading post</div>

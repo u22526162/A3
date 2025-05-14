@@ -1,3 +1,4 @@
+<!-- Amadeus Fidos u22526162-->
 <template>
   <article class="blog-card">
     <NuxtLink :to="`/posts/${post.id}`" class="blog-card-link">
