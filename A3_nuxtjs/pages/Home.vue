@@ -1,30 +1,16 @@
 <template>
   <main class="homepage">
-    <section class="hero-section">
-      <h1 class="hero-title">My Blog Site</h1>
-      <p class="hero-subtitle">Discover the latest articles and insights</p>
+    <section class="title-section">
+      <h1 class="page-title">My Blog Site</h1>
     </section>
 
     <section class="blog-section">
       <div class="container">
-        <div class="category-filter">
-          <select v-model="selectedCategory" class="filter-select">
-            <option value="">All Categories</option>
-            <option 
-              v-for="category in categories" 
-              :key="category.id" 
-              :value="category.attributes.name"
-            >
-              {{ category.attributes.name }}
-            </option>
-          </select>
-        </div>
-
         <div class="blog-grid">
           <BlogCard 
-            v-for="post in filteredPosts" 
-            :key="post.id" 
-            :post="post" 
+            v-for="blog in blogs?.data" 
+            :key="blog.id" 
+            :post="blog"
           />
         </div>
 
@@ -32,8 +18,8 @@
           Loading posts...
         </div>
 
-        <div v-if="!isLoading && filteredPosts.length === 0" class="empty-state">
-          No posts found. Check back later!
+        <div v-if="!isLoading && (!blogs?.data || blogs.data.length === 0)" class="empty-state">
+          No posts found
         </div>
       </div>
     </section>
@@ -41,21 +27,22 @@
 </template>
 
 <script setup>
-const selectedCategory = ref('');
 const isLoading = ref(true);
-
-const { data: posts } = await useFetch('http://localhost:1337/api/posts?populate=*');
-const { data: categories } = await useFetch('http://localhost:1337/api/categories');
-
-isLoading.value = false;
-
-const filteredPosts = computed(() => {
-  if (!selectedCategory.value) 
-    return posts.value.data;
-  return posts.value.data.filter(post => 
-    post.attributes.category?.data?.attributes?.name === selectedCategory.value
-  );
-})
+const { data: blogs } = await useAsyncData('blogs', async () => {
+  try {
+    return await $fetch('http://localhost:1337/api/blogs', {
+      params: {
+        'populate[author]': true,
+        sort: 'dateCreated:desc'
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+    return { data: [] };
+  } finally {
+    isLoading.value = false;
+  }
+});
 </script>
 
 <style scoped src="@/assets/css/home.css"></style>

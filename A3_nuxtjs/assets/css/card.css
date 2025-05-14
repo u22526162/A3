@@ -71,7 +71,7 @@
   color: #1e293b;
 }
 
-.blog-card-excerpt {
+.blog-card-text {
   color: #475569;
   margin-bottom: 1rem;
   line-height: 1.5;
@@ -84,11 +84,4 @@
   gap: 0.5rem;
   font-size: 0.875rem;
   color: #64748b;
-}
-
-.blog-card-avatar {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  object-fit: cover;
 }

@@ -1,0 +1,2 @@
+Reflection 
+Docker was easy to use as I have prior experience with the technology. Strapi CMS has an intuitive UI. However, t took a lot of research to understand all the functionality. One challenge I faced that severely impacted my project was not understanding endpoints correctly. Some calls were difficult to implement, especially with relationships between content.
