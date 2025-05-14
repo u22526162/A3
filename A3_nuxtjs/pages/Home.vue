@@ -7,7 +7,6 @@
 
     <section class="blog-section">
       <div class="container">
-        <!-- Category Filter -->
         <div class="category-filter">
           <select v-model="selectedCategory" class="filter-select">
             <option value="">All Categories</option>
@@ -21,7 +20,6 @@
           </select>
         </div>
 
-        <!-- Blog Posts Grid -->
         <div class="blog-grid">
           <BlogCard 
             v-for="post in filteredPosts" 
@@ -30,12 +28,10 @@
           />
         </div>
 
-        <!-- Loading State -->
         <div v-if="isLoading" class="loading-state">
           Loading posts...
         </div>
 
-        <!-- Empty State -->
         <div v-if="!isLoading && filteredPosts.length === 0" class="empty-state">
           No posts found. Check back later!
         </div>

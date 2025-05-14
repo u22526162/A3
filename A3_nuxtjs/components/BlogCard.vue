@@ -51,15 +51,15 @@ const formatDate = (dateString) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-  })
+  });
 }
 
 const truncateText = (text, maxLength) => {
   if (!text) return ''
-  const stripped = text.replace(/<[^>]*>?/gm, '') // Remove HTML tags
+  const stripped = text.replace(/<[^>]*>?/gm, '');
   return stripped.length > maxLength 
     ? stripped.substring(0, maxLength) + '...' 
-    : stripped
+    : stripped;
 }
 </script>
 
