@@ -18,9 +18,9 @@
     <div v-if="searchResults.length > 0" class="results-container">
       <div v-for="result in searchResults" :key="result.id" class="result-card">
         <NuxtLink :to="`/posts/${result.id}`" class="result-link">
-          <h3 class="result-title">{{ result.attributes.title }}</h3>
-          <p class="result-author">By {{ result.attributes.author.data.attributes.name }}</p>
-          <p class="result-snippet">{{ result.attributes.snippet }}</p>
+          <h3 class="result-title">{{ result.title }}</h3>
+          <p class="result-author">By {{ result.author?.name || 'Unknown' }}</p>
+          <p class="result-snippet">{{ truncateText(result.content, 120) }}</p>
         </NuxtLink>
       </div>
     </div>
@@ -52,14 +52,29 @@ const performSearch = () => {
   isLoading.value = true;
   debounceTimer.value = setTimeout(async () => {
     try {
-      const { data } = await $fetch(`http://localhost:1337/api/posts?filters[$or][0][title][$contains]=${searchQuery.value}&filters[$or][1][author][name][$contains]=${searchQuery.value}&populate=*`);
+      const { data } = await $fetch('http://localhost:1337/api/blogs', {
+        params: {
+          'filters[$or][0][title][$containsi]': searchQuery.value,
+          'filters[$or][1][author][name][$containsi]': searchQuery.value,
+          'populate[author]': true
+        }
+      });
       searchResults.value = data;
     } catch (error) {
       console.error('Search failed:', error);
+      searchResults.value = [];
     } finally {
       isLoading.value = false;
     }
   }, 300);
+}
+
+const truncateText = (text, maxLength) => {
+  if (!text) return '';
+  const stripped = text.replace(/<[^>]*>?/gm, '');
+  return stripped.length > maxLength 
+    ? stripped.substring(0, maxLength) + '...' 
+    : stripped;
 }
 </script>
 
