@@ -1,7 +1,7 @@
 <template>
   <main class="homepage">
     <section class="hero-section">
-      <h1 class="hero-title">Welcome to My Blog</h1>
+      <h1 class="hero-title">My Blog Site</h1>
       <p class="hero-subtitle">Discover the latest articles and insights</p>
     </section>
 
@@ -41,21 +41,20 @@
 </template>
 
 <script setup>
-const selectedCategory = ref('')
-const isLoading = ref(true)
+const selectedCategory = ref('');
+const isLoading = ref(true);
 
-// Fetch posts and categories
-const { data: posts } = await useFetch('http://localhost:1337/api/posts?populate=*')
-const { data: categories } = await useFetch('http://localhost:1337/api/categories')
+const { data: posts } = await useFetch('http://localhost:1337/api/posts?populate=*');
+const { data: categories } = await useFetch('http://localhost:1337/api/categories');
 
-isLoading.value = false
+isLoading.value = false;
 
-// Filter posts by category
 const filteredPosts = computed(() => {
-  if (!selectedCategory.value) return posts.value.data
+  if (!selectedCategory.value) 
+    return posts.value.data;
   return posts.value.data.filter(post => 
     post.attributes.category?.data?.attributes?.name === selectedCategory.value
-  )
+  );
 })
 </script>
 
