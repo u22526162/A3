@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar">
     <div class="navbar-container">
-      <NuxtLink to="/" class="navbar-logo">My Blog</NuxtLink>
+      <NuxtLink to="/Home" class="navbar-logo">My Blog</NuxtLink>
       <div class="navbar-links">
-        <NuxtLink to="/" class="navbar-link">Home</NuxtLink>
+        <NuxtLink to="/Home" class="navbar-link">Home</NuxtLink>
         <NuxtLink to="/search" class="navbar-link">Search</NuxtLink>
       </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  // No inline styles here
+
 }
 </script>
 
